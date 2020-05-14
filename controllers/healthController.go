@@ -17,7 +17,7 @@ type healthController struct {
 
 // NewHealthController initialize health endpoint
 func NewHealthController(healthService services.HealthService,
-	logger *logger.Logger) HealthController {
+	logger *logger.Logger) Controller {
 	return &healthController{
 		healthService: healthService,
 		logger:        logger,
@@ -25,10 +25,10 @@ func NewHealthController(healthService services.HealthService,
 }
 
 func (controller *healthController) LoadRoutes(router *mux.Router) {
-	router.HandleFunc("/health", controller.HealthCheck).Methods("GET")
+	router.HandleFunc("/health", controller.healthCheck).Methods("GET")
 }
 
-func (controller *healthController) HealthCheck(w http.ResponseWriter, r *http.Request) {
+func (controller *healthController) healthCheck(w http.ResponseWriter, r *http.Request) {
 	ctx := r.Context()
 	serviceError := controller.healthService.HealthCheck(ctx)
 	if serviceError != nil {

@@ -10,6 +10,7 @@ import (
 	"github.com/dhyaniarun1993/foody-common/datastore/sql"
 	"github.com/dhyaniarun1993/foody-common/logger"
 	"github.com/dhyaniarun1993/foody-common/tracer"
+	"github.com/dhyaniarun1993/foody-common/validator"
 	"github.com/dhyaniarun1993/foody-customer-service/cmd/customer-server/config"
 	"github.com/dhyaniarun1993/foody-customer-service/controllers"
 	repositories "github.com/dhyaniarun1993/foody-customer-service/repositories/mysql"
@@ -18,6 +19,7 @@ import (
 
 func main() {
 	config := config.InitConfiguration()
+	validate := validator.New()
 	logger := logger.CreateLogger(config.Log)
 	t, closer := tracer.InitJaeger(config.Jaeger)
 	defer closer.Close()
@@ -25,8 +27,10 @@ func main() {
 	DB := sql.CreatePool(config.SQL, "mysql", t)
 
 	healthRepository := repositories.NewHealthRepository(DB)
+	customerRepository := repositories.NewCustomerRepository(DB)
 
 	healthService := services.NewHealthService(healthRepository, logger)
+	customerService := services.NewCustomerService(customerRepository, logger)
 
 	router := mux.NewRouter()
 	ignoredURLs := []string{"/health"}
@@ -34,8 +38,10 @@ func main() {
 
 	router.Use(tracer.TraceRequest(t, ignoredURLs, ignoredMethods))
 	healthController := controllers.NewHealthController(healthService, logger)
+	customerController := controllers.NewCustomerController(customerService, logger, validate)
 
 	healthController.LoadRoutes(router)
+	customerController.LoadRoutes(router)
 	serverAddress := ":" + fmt.Sprint(config.Port)
 	srv := &http.Server{
 		Handler:      router,

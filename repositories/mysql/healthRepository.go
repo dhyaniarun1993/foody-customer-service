@@ -13,7 +13,7 @@ type healthRepository struct {
 	*sql.DB
 }
 
-// NewHealthRepository creates and return health repository
+// NewHealthRepository creates and return mysql health repository
 func NewHealthRepository(db *sql.DB) repositories.HealthRepository {
 	return &healthRepository{db}
 }

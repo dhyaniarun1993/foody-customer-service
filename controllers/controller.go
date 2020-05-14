@@ -1,13 +1,10 @@
 package controllers
 
 import (
-	"net/http"
-
 	"github.com/gorilla/mux"
 )
 
-// HealthController provides interface for health controller
-type HealthController interface {
+// Controller provides interface for controller
+type Controller interface {
 	LoadRoutes(*mux.Router)
-	HealthCheck(http.ResponseWriter, *http.Request)
 }

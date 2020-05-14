@@ -3,7 +3,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:818c758e8d7a2e5c7bfc735749fff63f0dbabd358c0dc6c7f728169608b19334"
+  digest = "1:8dd512ad0852f3d9bb523612e9aeaa21d2d2239526ed50652e7020a8d1efd948"
   name = "github.com/dhyaniarun1993/foody-common"
   packages = [
     "authentication",
@@ -11,9 +11,29 @@
     "errors",
     "logger",
     "tracer",
+    "validator",
   ]
   pruneopts = "UT"
-  revision = "7c7ac58d689fc2c0b5d5c19b21b3667fd80ade3a"
+  revision = "6c984f908a24f6b4659855c3993c6df5efcf28db"
+
+[[projects]]
+  digest = "1:e1cbe9ce835f515ce57500b8db6b94f399650bea2ddfac59f9b05d98db77a96d"
+  name = "github.com/go-playground/locales"
+  packages = [
+    ".",
+    "currency",
+  ]
+  pruneopts = "UT"
+  revision = "9f105231d3a5f6877a2bf8321dfa15ea6f844b1b"
+  version = "v0.13.0"
+
+[[projects]]
+  digest = "1:0d18fff5db6983e912eb2ac15038ed3eabb8ec03c9bd9129b10cd0213f50ec6d"
+  name = "github.com/go-playground/universal-translator"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "f87b1403479a348651dbf5f07f5cc6e5fcf07008"
+  version = "v0.17.0"
 
 [[projects]]
   digest = "1:a3af33fd30536d9c5a7b6ad542390919e57c1125097a194c7b3d9904109a0611"
@@ -38,6 +58,14 @@
   pruneopts = "UT"
   revision = "0b417c4ec4a8a82eecc22a1459a504aa55163d61"
   version = "v1.4.0"
+
+[[projects]]
+  digest = "1:803b281410ec195645c782ddb9cb029d43c2855d4b7824ea31104985b507a458"
+  name = "github.com/leodido/go-urn"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "a0f5013415294bb94553821ace21a1a74c0298cc"
+  version = "v1.2.0"
 
 [[projects]]
   digest = "1:11e62d6050198055e6cd87ed57e5d8c669e84f839c16e16f192374d913d1a70d"
@@ -125,6 +153,14 @@
   revision = "feeb9a050b31b40eec6f2470e7599eeeadfe5bdd"
   version = "v1.15.0"
 
+[[projects]]
+  digest = "1:0e49ce3bb641491517ba5035619be50aa07619814665c9761d0decb48f35ea94"
+  name = "gopkg.in/go-playground/validator.v9"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "21c910fc6d9c3556c28252b04beb17de0c2d40ec"
+  version = "v9.31.0"
+
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
@@ -133,8 +169,10 @@
     "github.com/dhyaniarun1993/foody-common/errors",
     "github.com/dhyaniarun1993/foody-common/logger",
     "github.com/dhyaniarun1993/foody-common/tracer",
+    "github.com/dhyaniarun1993/foody-common/validator",
     "github.com/gorilla/mux",
     "github.com/kelseyhightower/envconfig",
+    "gopkg.in/go-playground/validator.v9",
   ]
   solver-name = "gps-cdcl"
   solver-version = 1
