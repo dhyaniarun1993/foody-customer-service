@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"github.com/gorilla/mux"
+	"github.com/gorilla/schema"
 
 	"github.com/dhyaniarun1993/foody-common/datastore/sql"
 	"github.com/dhyaniarun1993/foody-common/logger"
@@ -20,6 +21,7 @@ import (
 func main() {
 	config := config.InitConfiguration()
 	validate := validator.New()
+	schemaDecoder := schema.NewDecoder()
 	logger := logger.CreateLogger(config.Log)
 	t, closer := tracer.InitJaeger(config.Jaeger)
 	defer closer.Close()
@@ -38,7 +40,7 @@ func main() {
 
 	router.Use(tracer.TraceRequest(t, ignoredURLs, ignoredMethods))
 	healthController := controllers.NewHealthController(healthService, logger)
-	customerController := controllers.NewCustomerController(customerService, logger, validate)
+	customerController := controllers.NewCustomerController(customerService, logger, validate, schemaDecoder)
 
 	healthController.LoadRoutes(router)
 	customerController.LoadRoutes(router)

@@ -43,7 +43,7 @@ func (db *customerRepository) Create(ctx context.Context, customer models.Custom
 }
 
 func (db *customerRepository) GetByPhoneNumber(ctx context.Context, PhoneNumber string) (models.Customer, errors.AppError) {
-	var customer models.Customer
+	customer := models.Customer{}
 	timedCtx, cancel := context.WithTimeout(ctx, 1*time.Second)
 	defer cancel()
 
@@ -51,7 +51,7 @@ func (db *customerRepository) GetByPhoneNumber(ctx context.Context, PhoneNumber 
 	row := db.QueryRowContext(timedCtx, query, PhoneNumber)
 
 	err := row.Scan(&customer.ID, &customer.FirstName, &customer.LastName, &customer.PhoneNumber, &customer.Email, &customer.Status, &customer.CreatedAt, &customer.UpdatedAt)
-	if err != sql.ErrNoRows {
+	if err != nil && err != sql.ErrNoRows {
 		return customer, errors.NewAppError("Something went wrong", errors.StatusInternalServerError, err)
 	}
 	return customer, nil
@@ -66,7 +66,7 @@ func (db *customerRepository) GetByEmail(ctx context.Context, email string) (mod
 	row := db.QueryRowContext(timedCtx, query, email)
 
 	err := row.Scan(&customer.ID, &customer.FirstName, &customer.LastName, &customer.PhoneNumber, &customer.Email, &customer.Status, &customer.CreatedAt, &customer.UpdatedAt)
-	if err != sql.ErrNoRows {
+	if err != nil && err != sql.ErrNoRows {
 		return customer, errors.NewAppError("Something went wrong", errors.StatusInternalServerError, err)
 	}
 	return customer, nil

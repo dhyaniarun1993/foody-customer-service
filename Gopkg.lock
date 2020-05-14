@@ -52,6 +52,14 @@
   version = "v1.7.4"
 
 [[projects]]
+  digest = "1:345ad428d03cc89fa5498d61383d0d7f39afbe8731ca135c0ec92782285121d3"
+  name = "github.com/gorilla/schema"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "124d17ef95858a10835ce95502446cb5a9e9f715"
+  version = "v1.1.0"
+
+[[projects]]
   digest = "1:fd9bea48bbc5bba66d9891c72af7255fbebecdff845c37c679406174ece5ca1b"
   name = "github.com/kelseyhightower/envconfig"
   packages = ["."]
@@ -170,7 +178,9 @@
     "github.com/dhyaniarun1993/foody-common/logger",
     "github.com/dhyaniarun1993/foody-common/tracer",
     "github.com/dhyaniarun1993/foody-common/validator",
+    "github.com/go-sql-driver/mysql",
     "github.com/gorilla/mux",
+    "github.com/gorilla/schema",
     "github.com/kelseyhightower/envconfig",
     "gopkg.in/go-playground/validator.v9",
   ]

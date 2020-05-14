@@ -40,3 +40,28 @@ func (dto CreateCustomerRequest) Validate(validate *validator.Validate) errors.A
 type CreateCustomerResponse struct {
 	ID int64 `json:"id"`
 }
+
+// GetCustomerRequestQuery provides the schema definition for get customer api request query
+type GetCustomerRequestQuery struct {
+	PhoneNumber string `json:"phoneNumber" validate:"required,indiaPhoneNumber"`
+}
+
+// GetCustomerRequest provides the schema definition for get customer api request
+type GetCustomerRequest struct {
+	Query GetCustomerRequestQuery `json:"query" validate:"required,dive"`
+}
+
+// Validate validates GetCustomerRequest
+func (dto GetCustomerRequest) Validate(validate *validator.Validate) errors.AppError {
+	var errMsg string
+	err := validate.Struct(dto)
+	if err != nil {
+		for _, err := range err.(validator.ValidationErrors) {
+			errMsg = fmt.Sprintf("Invalid value for field '%s'", err.Field())
+			break
+		}
+		return errors.NewAppError(errMsg, errors.StatusBadRequest, err)
+	}
+
+	return nil
+}
