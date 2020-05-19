@@ -12,8 +12,8 @@ import (
 
 // Configuration provides the configuration parameters for customer http client
 type Configuration struct {
-	Endpoint string        `required:"true"`
-	Timeout  time.Duration `required:"true"`
+	APIEndpoint string        `required:"true" split_words:"true"`
+	APITimeout  time.Duration `required:"true" split_words:"true"`
 }
 
 type httpClient struct {
