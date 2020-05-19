@@ -1,6 +1,10 @@
 package models
 
-import "time"
+import (
+	"time"
+
+	"github.com/dhyaniarun1993/foody-customer-service/constants"
+)
 
 // Customer provides the model definition for Customer
 type Customer struct {
@@ -12,4 +16,12 @@ type Customer struct {
 	Status      string    `json:"status"`
 	CreatedAt   time.Time `json:"created_at,omitempty"`
 	UpdatedAt   time.Time `json:"updated_at,omitempty"`
+}
+
+// IsActive check if customer status is active
+func (customer *Customer) IsActive() bool {
+	if customer.Status == constants.CustomerStatusActive {
+		return true
+	}
+	return false
 }
