@@ -3,6 +3,7 @@ package mysql
 import (
 	"context"
 	"database/sql"
+	"net/http"
 	"time"
 
 	instrumentedSQL "github.com/dhyaniarun1993/foody-common/datastore/sql"
@@ -30,14 +31,14 @@ func (db *customerRepository) Create(ctx context.Context, customer models.Custom
 	if insertErr != nil {
 		mysqlError, ok := insertErr.(*mysql.MySQLError)
 		if ok && mysqlError.Number == 1062 {
-			return 0, errors.NewAppError("Phone number or Email already linked to an account", errors.StatusUnprocessableEntity, insertErr)
+			return 0, errors.NewAppError("Phone number or Email already linked to an account", http.StatusUnprocessableEntity, insertErr)
 		}
-		return 0, errors.NewAppError("Unable to create Customer", errors.StatusInternalServerError, insertErr)
+		return 0, errors.NewAppError("Unable to create Customer", http.StatusInternalServerError, insertErr)
 	}
 
 	customerID, fetchIDError := res.LastInsertId()
 	if fetchIDError != nil {
-		return 0, errors.NewAppError("Unable to fetch Id", errors.StatusInternalServerError, fetchIDError)
+		return 0, errors.NewAppError("Unable to fetch Id", http.StatusInternalServerError, fetchIDError)
 	}
 	return customerID, nil
 }
@@ -47,12 +48,12 @@ func (db *customerRepository) GetByPhoneNumber(ctx context.Context, PhoneNumber 
 	timedCtx, cancel := context.WithTimeout(ctx, 1*time.Second)
 	defer cancel()
 
-	query := "SELECT id, first_name, last_name, phone_number, email, status, created_at, updated_at from customer where phone_number = ?"
+	query := "SELECT id, first_name, last_name, phone_number, email, status, created_at, updated_at FROM customer WHERE phone_number = ?"
 	row := db.QueryRowContext(timedCtx, query, PhoneNumber)
 
 	err := row.Scan(&customer.ID, &customer.FirstName, &customer.LastName, &customer.PhoneNumber, &customer.Email, &customer.Status, &customer.CreatedAt, &customer.UpdatedAt)
 	if err != nil && err != sql.ErrNoRows {
-		return customer, errors.NewAppError("Something went wrong", errors.StatusInternalServerError, err)
+		return customer, errors.NewAppError("Something went wrong", http.StatusInternalServerError, err)
 	}
 	return customer, nil
 }
@@ -62,12 +63,12 @@ func (db *customerRepository) GetByEmail(ctx context.Context, email string) (mod
 	timedCtx, cancel := context.WithTimeout(ctx, 1*time.Second)
 	defer cancel()
 
-	query := "SELECT id, first_name, last_name, phone_number, email, status, created_at, updated_at from customer where email = ?"
+	query := "SELECT id, first_name, last_name, phone_number, email, status, created_at, updated_at FROM customer WHERE email = ?"
 	row := db.QueryRowContext(timedCtx, query, email)
 
 	err := row.Scan(&customer.ID, &customer.FirstName, &customer.LastName, &customer.PhoneNumber, &customer.Email, &customer.Status, &customer.CreatedAt, &customer.UpdatedAt)
 	if err != nil && err != sql.ErrNoRows {
-		return customer, errors.NewAppError("Something went wrong", errors.StatusInternalServerError, err)
+		return customer, errors.NewAppError("Something went wrong", http.StatusInternalServerError, err)
 	}
 	return customer, nil
 }

@@ -3,7 +3,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:8dd512ad0852f3d9bb523612e9aeaa21d2d2239526ed50652e7020a8d1efd948"
+  digest = "1:1ef815cb8d3f34763ce834b86be753a57fc2c674000e8ea5d8977ac2b80bae14"
   name = "github.com/dhyaniarun1993/foody-common"
   packages = [
     "authentication",
@@ -14,7 +14,7 @@
     "validator",
   ]
   pruneopts = "UT"
-  revision = "6c984f908a24f6b4659855c3993c6df5efcf28db"
+  revision = "13999d5b71499ae7674bb50e13f7877ef821c533"
 
 [[projects]]
   digest = "1:e1cbe9ce835f515ce57500b8db6b94f399650bea2ddfac59f9b05d98db77a96d"
@@ -74,6 +74,14 @@
   pruneopts = "UT"
   revision = "a0f5013415294bb94553821ace21a1a74c0298cc"
   version = "v1.2.0"
+
+[[projects]]
+  branch = "master"
+  digest = "1:bce8a8c7289c6c5e23423799b905c3e8f2d532117c3778a45592bdc095cf5c83"
+  name = "github.com/opentracing-contrib/go-stdlib"
+  packages = ["nethttp"]
+  pruneopts = "UT"
+  revision = "cf7a6c988dc994e945d2715565026f3cc8718689"
 
 [[projects]]
   digest = "1:11e62d6050198055e6cd87ed57e5d8c669e84f839c16e16f192374d913d1a70d"
@@ -182,6 +190,8 @@
     "github.com/gorilla/mux",
     "github.com/gorilla/schema",
     "github.com/kelseyhightower/envconfig",
+    "github.com/opentracing-contrib/go-stdlib/nethttp",
+    "github.com/opentracing/opentracing-go",
     "gopkg.in/go-playground/validator.v9",
   ]
   solver-name = "gps-cdcl"

@@ -38,6 +38,10 @@ func (controller *customerController) internalCreate(w http.ResponseWriter, r *h
 	var requestBody dto.CreateCustomerRequestBody
 	ctx := r.Context()
 
+	for key, _ := range r.Header {
+		fmt.Println(key)
+	}
+
 	logger := controller.logger.WithContext(ctx)
 	decodingError := json.NewDecoder(r.Body).Decode(&requestBody)
 	if decodingError != nil {

@@ -2,6 +2,7 @@ package services
 
 import (
 	"context"
+	"net/http"
 	"reflect"
 	"strings"
 
@@ -52,7 +53,7 @@ func (service *customerService) Get(ctx context.Context,
 	}
 
 	if reflect.DeepEqual(customer, models.Customer{}) {
-		return models.Customer{}, errors.NewAppError("Unable to find customer", errors.StatusNotFound, nil)
+		return models.Customer{}, errors.NewAppError("Unable to find customer", http.StatusNotFound, nil)
 	}
 
 	return customer, nil

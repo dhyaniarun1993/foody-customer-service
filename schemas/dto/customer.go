@@ -2,6 +2,7 @@ package dto
 
 import (
 	"fmt"
+	"net/http"
 
 	"gopkg.in/go-playground/validator.v9"
 
@@ -30,7 +31,7 @@ func (dto CreateCustomerRequest) Validate(validate *validator.Validate) errors.A
 			errMsg = fmt.Sprintf("Invalid value for field '%s'", err.Field())
 			break
 		}
-		return errors.NewAppError(errMsg, errors.StatusBadRequest, err)
+		return errors.NewAppError(errMsg, http.StatusBadRequest, err)
 	}
 
 	return nil
@@ -60,7 +61,7 @@ func (dto GetCustomerRequest) Validate(validate *validator.Validate) errors.AppE
 			errMsg = fmt.Sprintf("Invalid value for field '%s'", err.Field())
 			break
 		}
-		return errors.NewAppError(errMsg, errors.StatusBadRequest, err)
+		return errors.NewAppError(errMsg, http.StatusBadRequest, err)
 	}
 
 	return nil
