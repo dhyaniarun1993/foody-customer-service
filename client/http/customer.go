@@ -17,7 +17,7 @@ import (
 func (client *httpClient) InternalCreateCustomer(ctx context.Context,
 	body dto.CreateCustomerRequestBody) (dto.CreateCustomerResponse, errors.AppError) {
 
-	url := client.config.Endpoint + "/v1/internal/customers"
+	url := client.config.APIEndpoint + "/v1/internal/customers"
 	requestBody := new(bytes.Buffer)
 	json.NewEncoder(requestBody).Encode(body)
 	req, createRequestError := http.NewRequest("POST", url, requestBody)
@@ -57,7 +57,7 @@ func (client *httpClient) InternalCreateCustomer(ctx context.Context,
 func (client *httpClient) InternalGetCustomer(ctx context.Context,
 	query dto.GetCustomerRequestQuery) (models.Customer, errors.AppError) {
 
-	url := client.config.Endpoint + "/v1/internal/customers"
+	url := client.config.APIEndpoint + "/v1/internal/customers"
 	req, createRequestError := http.NewRequest("GET", url, nil)
 	if createRequestError != nil {
 		return models.Customer{}, errors.NewAppError("Something went wrong", http.StatusInternalServerError, createRequestError)

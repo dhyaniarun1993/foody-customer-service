@@ -25,7 +25,7 @@ type httpClient struct {
 // NewCustomerClient creates and return http customer client
 func NewCustomerClient(config Configuration, tracer opentracing.Tracer) client.Client {
 	client := http.Client{
-		Timeout:   config.Timeout,
+		Timeout:   config.APITimeout,
 		Transport: &nethttp.Transport{},
 	}
 	return &httpClient{client, config, tracer}
