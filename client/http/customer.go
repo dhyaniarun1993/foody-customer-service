@@ -74,7 +74,7 @@ func (client *httpClient) InternalGetCustomer(ctx context.Context,
 
 	res, clientErr := client.Do(req)
 	if clientErr != nil {
-		return models.Customer{}, errors.NewAppError("Something went wrong", http.StatusInternalServerError, createRequestError)
+		return models.Customer{}, errors.NewAppError("Something went wrong", http.StatusInternalServerError, clientErr)
 	}
 	defer res.Body.Close()
 
